@@ -1,8 +1,7 @@
 import express, { json } from 'express';
+import { PORT } from './config/config.js';
 
 const app = express();
-
-const PORT = process.env.PORT || 4200;
 
 app.disable('x-powered-by');
 app.use(json());
