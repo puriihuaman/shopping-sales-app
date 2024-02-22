@@ -1,0 +1,10 @@
+**/node_modules
+
+**.dia~
+.env
+**.vscode/*
+*.log
+npm-debug.log*
+
+**/dist
+*.local
