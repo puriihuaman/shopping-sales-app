@@ -5,7 +5,7 @@ import {
 	DB_PASSWORD,
 	DB_PORT,
 	DB_USERNAME,
-} from '../config/config';
+} from '../config/config.js';
 
 const { Pool } = pg;
 

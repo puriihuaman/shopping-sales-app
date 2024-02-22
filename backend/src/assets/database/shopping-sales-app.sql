@@ -18,7 +18,7 @@ USE shopping_sales_app;
 
 -- Crear tabla perfil
 CREATE TABLE IF NOT EXISTS profiles (
-  code SMALLSERIAL,
+  code UUID,
   profile VARCHAR(20) NOT NULL,
   CONSTRAINT pk_profiles PRIMARY KEY (code),
   CONSTRAINT uk_profiles UNIQUE (profile)

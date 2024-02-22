@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 const profileSchema = z.object({
-	code: z.string().uuid().trim(),
+	// code: z.string().uuid().trim(),
 	profile: z
 		.string({
 			required_error: 'Profile profile must be a string',
