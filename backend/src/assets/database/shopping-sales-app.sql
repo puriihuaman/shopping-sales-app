@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS users (
   lastname VARCHAR(40) NOT NULL,
   email VARCHAR(60) NOT NULL,
   username VARCHAR(40) NOT NULL,
-  password VARCHAR(32) NOT NULL,
+  password VARCHAR(60) NOT NULL,
   id_profile UUID,
   CONSTRAINT pk_users PRIMARY KEY (id_user),
   CONSTRAINT uk_users UNIQUE (username),

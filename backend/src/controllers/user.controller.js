@@ -1,3 +1,4 @@
+import { encryptPassword } from '../helpers/handleBcrypt.js';
 import { validateUser } from '../schemas/user.schemas.js';
 
 export class UserController {
@@ -29,7 +30,12 @@ export class UserController {
 			if (error && !success)
 				return res.status(400).json({ error: JSON.parse(error.message) });
 
-			const user = await this.#userModel.createUser({ input: data });
+			const input = {
+				...data,
+				password: await encryptPassword(data.password),
+			};
+
+			const user = await this.#userModel.createUser({ input });
 
 			return res.status(201).json(user);
 		} catch (error) {
