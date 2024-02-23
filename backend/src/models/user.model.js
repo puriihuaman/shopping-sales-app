@@ -40,4 +40,25 @@ export class UserModel {
 
 		return response.rows[0];
 	}
+
+	static async login({ username }) {
+		const selectionQuery = 'SELECT * FROM users WHERE username = $1';
+
+		const client = await pool.connect();
+		const result = await client.query(selectionQuery, [username.toLowerCase()]);
+
+		if (result.rowCount !== 1 && result.command !== 'SELECT') {
+			return {
+				foundUser: false,
+				data: null,
+			};
+		}
+
+		await client.end();
+
+		return {
+			foundUser: true,
+			data: result.rows[0],
+		};
+	}
 }
