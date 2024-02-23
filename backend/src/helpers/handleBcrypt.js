@@ -21,4 +21,4 @@ const comparePassword = (passwordPlain, hashPassword) => {
 	return bcrypt.compare(passwordPlain, hashPassword);
 };
 
-export { encryptPassword };
+export { encryptPassword, comparePassword };
