@@ -16,7 +16,7 @@ const validateProfile = (profile) => {
 };
 
 const validatePartialProfile = (profile) => {
-	return profileSchema.safeParse(profile);
+	return profileSchema.partial().safeParse(profile);
 };
 
 export { validatePartialProfile, validateProfile };
