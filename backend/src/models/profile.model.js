@@ -14,17 +14,18 @@ export class ProfileModel {
 
 	static async createProfile({ input }) {
 		const { profile } = input;
-		const insertQuery = 'INSERT INTO profiles (code, profile) VALUES ($1, $2);';
-		const code = randomUUID();
+		const insertQuery =
+			'INSERT INTO profiles (id_profile, profile) VALUES ($1, $2);';
+		const idProfile = randomUUID();
 
 		const client = await pool.connect();
 
-		const result = await client.query(insertQuery, [code, profile]);
+		const result = await client.query(insertQuery, [idProfile, profile]);
 
 		if (result.rowCount !== 1 && result.command !== 'INSERT') return [];
 
-		const selectionQuery = 'SELECT * FROM profiles WHERE code = $1;';
-		const response = await client.query(selectionQuery, [code]);
+		const selectionQuery = 'SELECT * FROM profiles WHERE id_profile = $1;';
+		const response = await client.query(selectionQuery, [idProfile]);
 
 		await client.end();
 		return response.rows[0];
