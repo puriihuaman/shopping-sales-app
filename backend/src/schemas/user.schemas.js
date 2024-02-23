@@ -39,9 +39,9 @@ const userSchema = z.object({
 		.trim()
 		.min(10, { message: 'Must be 10 or more characters long' })
 		.max(32),
-	code_profile: z
+	id_profile: z
 		.string({
-			required_error: 'The profile code for user must be a string',
+			required_error: 'The profile id for user must be a string',
 			invalid_type_error: 'Profile id required for user',
 		})
 		.trim()
