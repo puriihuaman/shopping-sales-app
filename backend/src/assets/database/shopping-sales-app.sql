@@ -18,24 +18,24 @@ USE shopping_sales_app;
 
 -- Crear tabla perfil
 CREATE TABLE IF NOT EXISTS profiles (
-  code SMALLSERIAL,
+  id_profile UUID,
   profile VARCHAR(20) NOT NULL,
-  CONSTRAINT pk_profiles PRIMARY KEY (code),
+  CONSTRAINT pk_profiles PRIMARY KEY (id_profile),
   CONSTRAINT uk_profiles UNIQUE (profile)
 );
 
 -- Crear tabla usuarios
 CREATE TABLE IF NOT EXISTS users (
-  code SMALLSERIAL,
+  id_user UUID,
   name_user VARCHAR(40) NOT NULL,
   lastname VARCHAR(40) NOT NULL,
   email VARCHAR(60) NOT NULL,
   username VARCHAR(40) NOT NULL,
-  password VARCHAR(32) NOT NULL,
-  code_profile SMALLINT,
-  CONSTRAINT pk_users PRIMARY KEY (code),
+  password VARCHAR(60) NOT NULL,
+  id_profile UUID,
+  CONSTRAINT pk_users PRIMARY KEY (id_user),
   CONSTRAINT uk_users UNIQUE (username),
-  CONSTRAINT fk_users_profiles FOREIGN KEY (code_profile) REFERENCES profiles (code)
+  CONSTRAINT fk_users_profiles FOREIGN KEY (id_profile) REFERENCES profiles (id_profile)
   ON UPDATE RESTRICT ON DELETE RESTRICT
 );
 
