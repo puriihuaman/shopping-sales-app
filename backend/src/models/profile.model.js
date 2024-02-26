@@ -26,14 +26,14 @@ export class ProfileModel {
 
 			return {
 				message: 'profile successfully obtained',
-				deletedUser: true,
+				obtainedProfile: true,
 				dataRecords: result.rows[0],
 				error: null,
 			};
 		} catch (error) {
 			return {
 				message: error.message,
-				obtainedUser: false,
+				obtainedProfile: false,
 				dataRecords: [],
 				error,
 			};
@@ -56,16 +56,16 @@ export class ProfileModel {
 			if (result.rowCount !== 1 && result.command !== 'INSERT') {
 				throw new Error('could not insert profile');
 
-				return {
-					insertedUser: false,
-					dataRecords: [],
-					error: 'could not insert profile', //No se pudo insertar el perfil
-				};
+				// return {
+				// 	insertedProfile: false,
+				// 	dataRecords: [],
+				// 	error: 'could not insert profile', //No se pudo insertar el perfil
+				// };
 			}
 
 			return {
 				message: 'profile registered successfully', // perfil registrado exitosamente
-				insertedUser: true,
+				insertedProfile: true,
 				dataRecords: result.rows[0],
 				error: null,
 			};
@@ -74,7 +74,7 @@ export class ProfileModel {
 				return {
 					message:
 						'the profile already exists. Please choose another profile name',
-					insertedUser: false,
+					insertedProfile: false,
 					dataRecords: [],
 					error,
 				};
@@ -83,7 +83,7 @@ export class ProfileModel {
 
 			return {
 				message: 'error inserting profile', // Error al insertar el perfil
-				insertedUser: false,
+				insertedProfile: false,
 				dataRecords: [],
 				error,
 			};
@@ -105,7 +105,7 @@ export class ProfileModel {
 				throw new Error('could not delete profile');
 				// return {
 				// 	message: 'error deleting profile',
-				// 	deletedUser: false,
+				// 	deletedProfile: false,
 				// 	dataRecords: [],
 				// 	error: 'could not delete profile', //No se pudo eliminar el perfil
 				// };
@@ -113,14 +113,14 @@ export class ProfileModel {
 
 			return {
 				message: 'profile deleted successfully',
-				deletedUser: true,
+				deletedProfile: true,
 				dataRecords: result.rows[0],
 				error: null,
 			};
 		} catch (error) {
 			return {
 				message: error.message,
-				deletedUser: false,
+				deletedProfile: false,
 				dataRecords: [],
 				error,
 			};
@@ -147,14 +147,14 @@ export class ProfileModel {
 
 			return {
 				message: 'profile updated successfully',
-				updatedUser: true,
+				updatedProfile: true,
 				dataRecords: result.rows[0],
 				error: null,
 			};
 		} catch (error) {
 			return {
 				message: error.message,
-				updatedUser: false,
+				updatedProfile: false,
 				dataRecords: [],
 				error,
 			};

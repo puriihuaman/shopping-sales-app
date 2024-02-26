@@ -26,10 +26,10 @@ export class ProfileController {
 	getById = async (req, res) => {
 		const { id } = req.params;
 
-		const { message, obtainedUser, dataRecords, error } =
+		const { message, obtainedProfile, dataRecords, error } =
 			await this.#profileModel.getById({ id });
 
-		if (!obtainedUser && dataRecords.length === 0)
+		if (!obtainedProfile && dataRecords.length === 0)
 			return res.status(404).json({
 				message,
 				data: dataRecords,
@@ -52,14 +52,14 @@ export class ProfileController {
 		}
 
 		try {
-			const { message, insertedUser, dataRecords, error } =
+			const { message, insertedProfile, dataRecords, error } =
 				await this.#profileModel.createProfile({
 					input: validationResponse.data,
 				});
 
-			// if (!result.insertedUser && result.dataRecords.length === 0)
+			// if (!result.insertedProfile && result.dataRecords.length === 0)
 			// 	return res.status().json({ message: result.error });
-			if (!insertedUser && dataRecords.length === 0) {
+			if (!insertedProfile && dataRecords.length === 0) {
 				throw message;
 				// return res.status().json({ message: result.error });
 			}
@@ -81,10 +81,10 @@ export class ProfileController {
 	deleteProfile = async (req, res) => {
 		const { id } = req.params;
 
-		const { message, deletedUser, dataRecords, error } =
+		const { message, deletedProfile, dataRecords, error } =
 			await this.#profileModel.deleteProfile({ id });
 
-		if (!deletedUser && dataRecords.length === 0)
+		if (!deletedProfile && dataRecords.length === 0)
 			return res.status(404).json({
 				message,
 				data: dataRecords,
@@ -108,13 +108,13 @@ export class ProfileController {
 		}
 
 		try {
-			const { message, updatedUser, dataRecords, error } =
+			const { message, updatedProfile, dataRecords, error } =
 				await this.#profileModel.updateProfile({
 					id,
 					input: validationResponse.data,
 				});
 
-			if (!updatedUser && dataRecords.length === 0) {
+			if (!updatedProfile && dataRecords.length === 0) {
 				throw new Error(message);
 			}
 
