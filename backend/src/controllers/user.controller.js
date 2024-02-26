@@ -23,24 +23,40 @@ export class UserController {
 	};
 
 	createUser = async (req, res) => {
+		const { body } = req;
+		const validationResponse = validateUser(body);
+		if (validationResponse.error && !validationResponse.success)
+			return res
+				.status(400)
+				.json({ error: JSON.parse(validationResponse.error.message) });
+
 		try {
-			const { body } = req;
-			const { success, error, data } = validateUser(body);
-
-			if (error && !success)
-				return res.status(400).json({ error: JSON.parse(error.message) });
-
 			const input = {
-				...data,
-				password: await encryptPassword(data.password),
+				...validationResponse.data,
+				password: await encryptPassword(validationResponse.data.password),
 			};
 
-			const user = await this.#userModel.createUser({ input });
+			const { message, insertedUser, dataRecords, error } =
+				await this.#userModel.createUser({ input });
 
-			return res.status(201).json(user);
+			if (!insertedUser && dataRecords.length === 0) {
+				throw message;
+			}
+
+			return res.status(201).json({
+				message,
+				data: dataRecords,
+				errors: error,
+			});
 		} catch (error) {
-			return res.status(500).json({
-				message: 'Something goes wrong',
+			// return res.status(500).json({
+			// 	message: 'Something goes wrong',
+			// });
+
+			return res.status(409).json({
+				message: error.message,
+				data: dataRecords,
+				errors: error,
 			});
 		}
 	};

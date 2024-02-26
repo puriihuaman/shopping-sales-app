@@ -33,4 +33,32 @@ export class AuthController {
 			});
 		}
 	};
+
+	registerUser = async (req, res) => {
+		const { body } = req;
+
+		const { success, error, data } = validateUser(body);
+
+		if (error && !success)
+			return res.status(400).json({ error: JSON.parse(error.message) });
+
+		try {
+			const input = {
+				...data,
+				password: await encryptPassword(data.password),
+			};
+
+			const user = await this.#userModel.createUser({ input });
+
+			return res.status(201).json(user);
+
+			// message,
+			// 	data: dataRecords,
+			// 	errors: error,
+		} catch (error) {
+			return res.status(500).json({
+				message: 'Something goes wrong',
+			});
+		}
+	};
 }
