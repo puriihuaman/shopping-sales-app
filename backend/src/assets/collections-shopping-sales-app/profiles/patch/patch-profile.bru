@@ -1,0 +1,17 @@
+meta {
+  name: patch-profile
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{BACKEND_PATH}}/profiles/03ba4682-b157-4d16-b1d8-8e624766add1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "profile": "NUEVO"
+  }
+}

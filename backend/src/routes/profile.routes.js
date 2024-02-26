@@ -7,6 +7,9 @@ const profileRouter = Router();
 const profileController = new ProfileController({ profileModel: ProfileModel });
 
 profileRouter.get('/', profileController.getAll);
+profileRouter.get('/:id', profileController.getById);
 profileRouter.post('/', profileController.createProfile);
+profileRouter.delete('/:id', profileController.deleteProfile);
+profileRouter.patch('/:id', profileController.updateProfile);
 
 export { profileRouter };
