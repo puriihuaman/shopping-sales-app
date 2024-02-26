@@ -1,3 +1,4 @@
+import { tokenSign } from '../helpers/generate-token.js';
 import { comparePassword } from '../helpers/handleBcrypt.js';
 
 export class AuthController {
@@ -10,26 +11,39 @@ export class AuthController {
 		try {
 			const { username, password } = req.body;
 
-			const { foundUser, data } = await this.#userModel.login({ username });
+			const { message, foundUser, dataRecords, error } =
+				await this.#userModel.login({ username });
 
-			if (!foundUser && !data) {
-				return res.status(404).json({ message: 'user no found' });
+			if (!foundUser && dataRecords.length === 0) {
+				throw new Error(message);
 			}
 
-			const checkPassword = await comparePassword(password, data.password);
+			const checkPassword = await comparePassword(
+				password,
+				dataRecords.password
+			);
+
+			const tokenSession = await tokenSign(dataRecords);
 
 			if (!checkPassword) {
 				return res.status(409).json({
-					message: 'Invalid password',
+					message: 'invalid username or password',
+					data: [],
+					errors: error,
 				});
 			}
 
 			return res.status(200).json({
-				data,
+				message,
+				data: dataRecords,
+				errors: error,
+				tokenSession,
 			});
 		} catch (error) {
-			return res.status(500).json({
-				message: 'Something goes wrong',
+			return res.status(404).json({
+				message: error.message,
+				data: [],
+				errors: error,
 			});
 		}
 	};
