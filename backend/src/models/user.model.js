@@ -67,23 +67,47 @@ export class UserModel {
 	}
 
 	static async login({ username }) {
-		const selectionQuery = 'SELECT * FROM users WHERE username = $1';
+		const selectionQuery = 'SELECT * FROM users WHERE username = $1;';
 
 		const client = await pool.connect();
-		const result = await client.query(selectionQuery, [username.toLowerCase()]);
+		try {
+			const result = await client.query(selectionQuery, [
+				username.toLowerCase(),
+			]);
 
-		if (result.rowCount !== 1 && result.command !== 'SELECT') {
+			if (result.rowCount === 0 && result.rows.length === 0) {
+				// el usuario no existe
+				throw new Error(
+					'username does not exist. Please verify that the user exists'
+				);
+			}
+
 			return {
-				foundUser: false,
-				data: null,
+				message: 'user successfully obtained', // usuario obtenido correctamente
+				foundUser: true,
+				dataRecords: result.rows[0],
+				error: null,
 			};
+		} catch (error) {
+			// if (error.code === '42601') {
+			// 	return {
+			// 		message:
+			// 			'username does not exist. Please verify that the user exists',
+			// 		insertedProfile: false,
+			// 		dataRecords: [],
+			// 		error,
+			// 	};
+			// 	// el usuario no existe. Por favor verifique que exista el usuario
+			// }
+
+			return {
+				message: error.message,
+				foundUser: false,
+				dataRecords: [],
+				error,
+			};
+		} finally {
+			await client.end();
 		}
-
-		await client.end();
-
-		return {
-			foundUser: true,
-			data: result.rows[0],
-		};
 	}
 }
