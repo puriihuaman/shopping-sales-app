@@ -12,13 +12,23 @@ export class ProfileController {
 
 	getAll = async (req, res) => {
 		try {
-			const response = await this.#profileModel.getAll();
-			if (!response) throw new Error('DB Error');
+			const { message, obtainedProfile, dataRecords, error } =
+				await this.#profileModel.getAll();
 
-			return res.json(response);
+			if (!obtainedProfile && dataRecords.length === 0) {
+				throw new Error(message);
+			}
+
+			return res.status(200).json({
+				message,
+				data: dataRecords,
+				errors: error,
+			});
 		} catch (error) {
 			return res.status(500).json({
-				message: 'Something goes wrong',
+				message: error.message,
+				data: [],
+				errors: error,
 			});
 		}
 	};
@@ -26,21 +36,26 @@ export class ProfileController {
 	getById = async (req, res) => {
 		const { id } = req.params;
 
-		const { message, obtainedProfile, dataRecords, error } =
-			await this.#profileModel.getById({ id });
+		try {
+			const { message, obtainedProfile, dataRecords, error } =
+				await this.#profileModel.getById({ id });
 
-		if (!obtainedProfile && dataRecords.length === 0)
-			return res.status(404).json({
+			if (!obtainedProfile && dataRecords.length === 0) {
+				throw new Error(message);
+			}
+
+			return res.status(200).json({
 				message,
 				data: dataRecords,
 				errors: error,
 			});
-
-		return res.status(200).json({
-			message,
-			data: dataRecords,
-			errors: error,
-		});
+		} catch (error) {
+			return res.status(404).json({
+				message: error.message,
+				data: [],
+				errors: error,
+			});
+		}
 	};
 
 	createProfile = async (req, res) => {
@@ -57,11 +72,8 @@ export class ProfileController {
 					input: validationResponse.data,
 				});
 
-			// if (!result.insertedProfile && result.dataRecords.length === 0)
-			// 	return res.status().json({ message: result.error });
 			if (!insertedProfile && dataRecords.length === 0) {
-				throw message;
-				// return res.status().json({ message: result.error });
+				throw new Error(message);
 			}
 
 			return res.status(201).json({
@@ -72,7 +84,7 @@ export class ProfileController {
 		} catch (error) {
 			return res.status(409).json({
 				message: error.message,
-				data: dataRecords,
+				data: [],
 				errors: error,
 			});
 		}
@@ -81,21 +93,26 @@ export class ProfileController {
 	deleteProfile = async (req, res) => {
 		const { id } = req.params;
 
-		const { message, deletedProfile, dataRecords, error } =
-			await this.#profileModel.deleteProfile({ id });
+		try {
+			const { message, deletedProfile, dataRecords, error } =
+				await this.#profileModel.deleteProfile({ id });
 
-		if (!deletedProfile && dataRecords.length === 0)
-			return res.status(404).json({
+			if (!deletedProfile && dataRecords.length === 0) {
+				throw new Error(message);
+			}
+
+			return res.status(200).json({
 				message,
 				data: dataRecords,
 				errors: error,
 			});
-
-		return res.status(200).json({
-			message,
-			data: dataRecords,
-			errors: error,
-		});
+		} catch (error) {
+			return res.status(404).json({
+				message: error.message,
+				data: [],
+				errors: error,
+			});
+		}
 	};
 
 	updateProfile = async (req, res) => {
@@ -124,7 +141,6 @@ export class ProfileController {
 				errors: error,
 			});
 		} catch (error) {
-			console.error(error.message);
 			return res.status(404).json({
 				message: error.message,
 				data: [],

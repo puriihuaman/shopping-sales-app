@@ -6,10 +6,30 @@ export class ProfileModel {
 		const query = 'SELECT * FROM profiles';
 
 		const client = await pool.connect();
-		const result = await client.query(query);
 
-		await client.end();
-		return result.rows;
+		try {
+			const result = await client.query(query);
+			if (result.rowCount === 0 && result.rows.length === 0) {
+				// no se pudo obtener los perfiles
+				throw new Error('could not get profiles');
+			}
+
+			return {
+				message: 'profiles successfully obtained',
+				obtainedProfile: true,
+				dataRecords: result.rows,
+				error: null,
+			};
+		} catch (error) {
+			return {
+				message: error.message,
+				obtainedProfile: false,
+				dataRecords: [],
+				error,
+			};
+		} finally {
+			await client.end();
+		}
 	}
 
 	static async getById({ id }) {
