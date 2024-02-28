@@ -22,6 +22,8 @@ const verifyToken = async ({ token }) => {
 	}
 };
 
-const decodeSign = () => {};
+const decodeSign = ({ token }) => {
+	return jwt.decode(token, null);
+};
 
 export { tokenSign, verifyToken, decodeSign };
