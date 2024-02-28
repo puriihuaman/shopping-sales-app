@@ -4,6 +4,7 @@ import { profileRouter } from './routes/profile.routes.js';
 import { userRouter } from './routes/user.routes.js';
 import { authRouter } from './routes/auth.routes.js';
 import { corsMiddlewares } from './middlewares/cors.middleware.js';
+import { responseError } from './utils/index.js';
 
 const app = express();
 
@@ -14,6 +15,13 @@ app.use(corsMiddlewares());
 app.use('/api/login', authRouter);
 app.use('/api/profiles', profileRouter);
 app.use('/api/users', userRouter);
+
+// + Manejando los errores
+app.use((error, req, res, next) => {
+	const { message, statusCode, details } = error;
+
+	responseError(res, statusCode, message, details);
+});
 
 app.use((req, res) => {
 	res.status(404).json({ message: 'Recurso no encontrado' });
