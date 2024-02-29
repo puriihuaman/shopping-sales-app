@@ -9,7 +9,6 @@ class ClientError extends Error {
 class AuthClientError extends Error {
 	constructor(message, statusCode = 401, details = '') {
 		super(message);
-		this.name = this.contructor.name;
 		this.statusCode = statusCode;
 		this.details = details;
 	}
