@@ -1,20 +1,33 @@
 import { verifyToken } from '../helpers/generate-token.js';
+import { responseError } from '../utils/index.js';
 
 const checkAuth = async (req, res, next) => {
-	try {
-		const token = req.headers.authorization.split(' ').pop();
-		// const token = req.headers.authorization.split(' ')[1];
-		const tokenData = await verifyToken({ token });
+	const { authorization } = req.headers;
+	const token = authorization.split(' ')[1];
 
-		if (!tokenData || !tokenData.id_user) {
-			// tu por aquí no pasas
-			throw new Error("you don't pass here");
-			// return res.status(409).json({ error: "you don't pass here" });
-		} else {
-			next();
-		}
-	} catch (error) {
-		return res.status(409).json({ error: error.message });
+	if (!authorization || !token) {
+		return responseError(
+			res,
+			409,
+			'you do not have authorization',
+			"you don't have permissions. you need an authorization token"
+		);
+		// No tienes permisos. Necesitas un token de autorización
+	}
+
+	const tokenData = await verifyToken({ token });
+
+	if (!tokenData || !tokenData.id_user) {
+		return responseError(
+			res,
+			409,
+			'invalid authorization',
+			'you need a valid authorization token'
+		);
+		// autorización no válida
+		// necesitas un token de autorización válido
+	} else {
+		next();
 	}
 };
 
