@@ -6,11 +6,12 @@
  * @param {String} message
  */
 
-const response = (res, statusCode, data, message = '') => {
+const response = (res, statusCode, data, message = '', token = '') => {
 	return res.status(statusCode).json({
 		error: false,
 		data,
 		message,
+		token,
 	});
 };
 
