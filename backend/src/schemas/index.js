@@ -1,3 +1,9 @@
-import { validateProfile, validatePartialProfile } from './profile.schemas.js';
+import { validatePartialProfile, validateProfile } from './profile.schemas.js';
+import { validatePartialUser, validateUser } from './user.schemas.js';
 
-export { validateProfile, validatePartialProfile };
+export {
+	validatePartialProfile,
+	validatePartialUser,
+	validateProfile,
+	validateUser,
+};
