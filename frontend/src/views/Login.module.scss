@@ -1,0 +1,83 @@
+.main {
+	@apply bg-slate-950  text-slate-50;
+}
+.login-container {
+	@apply flex;
+
+	&--left,
+	&--right {
+		@apply flex-grow min-h-screen;
+	}
+
+	&--left {
+		@apply flex justify-center items-center max-lg:hidden bg-gradient-to-t from-slate-950 to-purple-800;
+	}
+
+	&--right {
+		@apply relative z-10 overflow-hidden bg-transparent text-slate-50 after:content-[''] after:absolute after:top-0 after:left-0 after:-z-10 after:w-full after:h-full after:bg-gradient-to-r from-slate-950 to-slate-900 after:-skew-y-12;
+	}
+}
+.banner-image {
+	@apply w-[400px];
+}
+.login-right-content {
+	@apply h-full w-[80%] mx-auto flex flex-col justify-center;
+}
+.login-logo-container {
+	@apply self-center pt-14;
+}
+.login-logo {
+	@apply w-14;
+	filter: invert(1);
+}
+.login-center-content {
+	@apply text-center;
+}
+.login-title {
+	@apply text-5xl font-heading font-bold mb-3 md:text-6xl;
+}
+.login-description {
+	@apply text-xl mb-10 md:text-2xl text-slate-400;
+}
+.login-form {
+	@apply flex flex-col;
+}
+.login-fieldset {
+	@apply relative mb-4;
+}
+.login-fieldset-pass {
+	@apply relative;
+}
+.login-fieldset-pass-recovery {
+	@apply text-center text-base text-slate-400 py-2;
+}
+.login-pass-recovery-link {
+	@apply no-underline hover:underline;
+}
+.login-fieldset-btns {
+	@apply flex flex-col gap-y-4;
+}
+.login-label {
+	@apply block hidden text-left ml-4 mb-2 capitalize opacity-50;
+}
+.login-input {
+	@apply w-full p-3.5 text-center border-2 border-slate-800 outline-none rounded-xl bg-slate-900 placeholder:opacity-80 placeholder:text-center focus:border-purple-500 active:border-purple-500;
+}
+.loginBtn {
+	@apply w-full flex justify-center items-center p-3.5 text-base border-2 cursor-pointer rounded-xl;
+}
+.btnLogin {
+	@apply bg-purple-500 text-slate-50 border-purple-500 hover:text-purple-500 hover:bg-transparent hover:border-current transition-colors duration-300;
+}
+.btnGoogle {
+	@apply bg-slate-900 gap-x-2 border-slate-900 hover:bg-slate-800 hover:border-slate-800 transition-colors duration-300;
+}
+.login-register {
+	@apply text-center text-base py-10;
+}
+.login-register-link {
+	@apply text-purple-500 no-underline font-semibold hover:underline;
+}
+.login-show-password {
+	@apply absolute top-[50%] right-4 translate-y-[-50%] w-8 h-8 flex justify-center items-center text-slate-400 cursor-pointer select-none hover:text-slate-50 transition-colors duration-300;
+}
