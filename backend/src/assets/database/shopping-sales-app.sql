@@ -52,24 +52,24 @@ CREATE TABLE IF NOT EXISTS customers (
 
 -- Crear tabla de proveedor
 CREATE TABLE IF NOT EXISTS providers (
-  code SMALLSERIAL,
+  id_provider UUID,
   id_document VARCHAR (20) NOT NULL,
   name VARCHAR(40) NOT NULL,
   address VARCHAR(200) NOT NULL,
   phone VARCHAR(20) NOT NULL,
-  CONSTRAINT pk_providers PRIMARY KEY (code),
+  CONSTRAINT pk_providers PRIMARY KEY (id_provider),
   CONSTRAINT uk_providers UNIQUE (id_document)
 );
 
 -- Crear tabla de producto
 CREATE TABLE IF NOT EXISTS products (
-  code SMALLSERIAL,
+  id_product UUID,
   name VARCHAR(40) NOT NULL,
   amount INT NOT NULL,
   price DECIMAL NOT NULL,
-  code_user SMALLINT,
-  CONSTRAINT pk_products PRIMARY KEY (code),
-  CONSTRAINT fk_products_users FOREIGN KEY (code_user) REFERENCES users (code) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  id_user UUID,
+  CONSTRAINT pk_products PRIMARY KEY (id_product),
+  CONSTRAINT fk_products_users FOREIGN KEY (id_user) REFERENCES users (id_user) ON UPDATE RESTRICT ON DELETE RESTRICT,
   CONSTRAINT ck_amount CHECK (amount > 0),
   CONSTRAINT ck_price CHECK (price > 0)
 );
