@@ -1,0 +1,15 @@
+meta {
+  name: get-users
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{BACKEND_PATH}}/users
+  body: none
+  auth: none
+}
+
+query {
+  ~username: modric
+}

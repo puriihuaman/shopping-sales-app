@@ -1,0 +1,15 @@
+meta {
+  name: get-profiles
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{BACKEND_PATH}}/profiles
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoiOTU3OWI1ZWEtOThhYS00ZGM0LTlhNzYtY2Q4NjI5NGQ1N2E4IiwidXNlcm5hbWUiOiJtb2RyaWMiLCJpZF9wcm9maWxlIjoiZGMxZGFmMTItNmUxMC00ZDJlLThkZjQtNmRkZDcwMDhiOGVjIiwiaWF0IjoxNzA5MjQ1NDg0LCJleHAiOjE3MDkyNDkwODR9.ifaMfCu7dnNKY9GOFjiR9XuZEfr5Ytl1pvLLPl335B4
+}
