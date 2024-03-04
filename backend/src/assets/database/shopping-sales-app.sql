@@ -93,19 +93,19 @@ CREATE TABLE IF NOT EXISTS shopping (
 
 -- Crear tabla de venta
 CREATE TABLE IF NOT EXISTS sales (
-  code SMALLSERIAL,
+  id_sale UUID,
   update_date DATE DEFAULT NOW() NOT NULL,
-  code_customer SMALLINT,
-  code_product SMALLINT,
+  id_customer UUID,
+  id_product UUID,
   amount INT NOT NULL,
   sale_value INT NOT NULL,
-  code_user SMALLINT,
-  CONSTRAINT pk_sales PRIMARY KEY (code),
-  CONSTRAINT fk_sales_customers FOREIGN KEY (code_customer) REFERENCES customers (code) ON UPDATE RESTRICT ON DELETE RESTRICT,
-  CONSTRAINT fk_sales_products FOREIGN KEY (code_product) REFERENCES products (code) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  id_user UUID,
+  CONSTRAINT pk_sales PRIMARY KEY (id_sale),
+  CONSTRAINT fk_sales_customers FOREIGN KEY (id_customer) REFERENCES customers (id_customer) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  CONSTRAINT fk_sales_products FOREIGN KEY (id_product) REFERENCES products (id_product) ON UPDATE RESTRICT ON DELETE RESTRICT,
   CONSTRAINT ck_sales_amount CHECK (amount > 0),
   CONSTRAINT ck_sales_sale_value CHECK (sale_value > 0),
-  CONSTRAINT fk_sales_users FOREIGN KEY (code_user) REFERENCES users (code) ON UPDATE RESTRICT ON DELETE RESTRICT
+  CONSTRAINT fk_sales_users FOREIGN KEY (id_user) REFERENCES users (id_user) ON UPDATE RESTRICT ON DELETE RESTRICT
 );
 
 -- Crear tabla de auditoria
