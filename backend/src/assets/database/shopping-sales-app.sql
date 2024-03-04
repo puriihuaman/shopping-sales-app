@@ -41,12 +41,12 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- Crear tabla de cliente
 CREATE TABLE IF NOT EXISTS customers (
-  code SMALLSERIAL,
+  id_customer UUID,
   id_document VARCHAR (20) NOT NULL,
   name VARCHAR(40) NOT NULL,
   address VARCHAR(200) NOT NULL,
   phone VARCHAR(20) NOT NULL,
-  CONSTRAINT pk_customers PRIMARY KEY (code),
+  CONSTRAINT pk_customers PRIMARY KEY (id_customer),
   CONSTRAINT uk_customers UNIQUE (id_document)
 );
 
