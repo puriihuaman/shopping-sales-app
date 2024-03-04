@@ -110,16 +110,16 @@ CREATE TABLE IF NOT EXISTS sales (
 
 -- Crear tabla de auditoria
 CREATE TABLE IF NOT EXISTS audits (
-  code SMALLSERIAL,
+  id_audit UUID,
   audit_date TIMESTAMP DEFAULT NOW() NOT NULL,
   action VARCHAR(30) NOT NULL,
   table_name VARCHAR(30) NOT NULL,
-  nuevo JSON,
-  anterior JSON NOT NULL,
-  code_user SMALLINT,
-  CONSTRAINT pk_audits PRIMARY KEY (code),
+  new_audit JSON,
+  previous JSON NOT NULL,
+  id_user UUID,
+  CONSTRAINT pk_audits PRIMARY KEY (id_audit),
   CONSTRAINT uk_audits UNIQUE (table_name),
-  CONSTRAINT fk_audits_users FOREIGN KEY (code_user) REFERENCES users (code) ON UPDATE RESTRICT ON DELETE RESTRICT
+  CONSTRAINT fk_audits_users FOREIGN KEY (id_user) REFERENCES users (id_user) ON UPDATE RESTRICT ON DELETE RESTRICT
 );
 
 
