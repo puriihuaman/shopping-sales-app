@@ -1,33 +1,44 @@
-import { ZodNumber, ZodObject, ZodString } from 'zod';
+import { z } from 'zod';
 
-const productSchema = ZodObject.create({
-	name: ZodString.length(60).create({
-		invalid_type_error: 'Product name must be a string',
-		required_error: 'Product name is required',
-	}),
-	amount: ZodNumber.create({
-		invalid_type_error: 'Product amount must be a number',
-		required_error: 'The quantity of products is required',
-	})
+const ProductSchema = z.object({
+	name: z
+		.string({
+			invalid_type_error: 'Product name must be a string',
+			required_error: 'Product name is required',
+		})
+		.trim()
+		.min(2, { message: 'The name must be at least 2 or more characters' })
+		.max(40, { message: 'The name must have a maximum of 40 characters' }),
+	amount: z
+		.number({
+			required_error: 'Amount is required',
+			invalid_type_error: 'Amount must be a number',
+		})
 		.int()
-		.positive()
-		.minValue(0)
-		.default(0),
-	price: ZodNumber.default(0),
-	code: ZodString.create({
-		invalid_type_error: 'Product code must be a string',
-		required_error: 'User code for products is required',
-	}),
+		.positive(),
+	price: z
+		.number({
+			required_error: 'Price is required',
+			invalid_type_error: 'Price must be a number',
+		})
+		.positive({ message: 'The price must be positive' }),
+	id_user: z
+		.string({
+			required_error: 'User id is required',
+			invalid_type_error: 'User id must be a string or a UUID',
+		})
+		.uuid()
+		.trim(),
 });
 
 const validateProduct = (product) => {
-	return productSchema.safeParse(product);
+	return ProductSchema.safeParse(product);
 };
 
 const validatePartialProduct = (product) => {
-	return productSchema.partial().safeParse(product);
+	return ProductSchema.partial().safeParse(product);
 };
 
 export { validateProduct, validatePartialProduct };
 
-// code - name - amount - price - code_user
+// (id_product*) - name - amount - price - id_user
