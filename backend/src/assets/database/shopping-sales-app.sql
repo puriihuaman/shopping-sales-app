@@ -76,19 +76,19 @@ CREATE TABLE IF NOT EXISTS products (
 
 -- Crear tabla de compra
 CREATE TABLE IF NOT EXISTS shopping (
-  code SMALLSERIAL,
+  id_shopping UUID,
   update_date DATE DEFAULT NOW() NOT NULL,
-  code_provider SMALLINT,
-  code_product SMALLINT,
+  id_provider UUID,
+  id_product UUID,
   amount INT NOT NULL,
-  purchase_value INT NOT NULL,
-  code_user SMALLINT,
-  CONSTRAINT pk_shopping PRIMARY KEY (code),
-  CONSTRAINT fk_shopping_providers FOREIGN KEY (code_provider) REFERENCES providers (code) ON UPDATE RESTRICT ON DELETE RESTRICT,
-  CONSTRAINT fk_shopping_products FOREIGN KEY (code_product) REFERENCES products (code) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  purchase_value DECIMAL NOT NULL,
+  id_user UUID,
+  CONSTRAINT pk_shopping PRIMARY KEY (id_shopping),
+  CONSTRAINT fk_shopping_providers FOREIGN KEY (id_provider) REFERENCES providers (id_provider) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  CONSTRAINT fk_shopping_products FOREIGN KEY (id_product) REFERENCES products (id_product) ON UPDATE RESTRICT ON DELETE RESTRICT,
   CONSTRAINT ck_shopping_amount CHECK(amount > 0),
   CONSTRAINT ck_shopping_purchase_value CHECK(purchase_value > 0),
-  CONSTRAINT fk_shopping_users FOREIGN KEY (code_user) REFERENCES users (code) ON UPDATE RESTRICT ON DELETE RESTRICT
+  CONSTRAINT fk_shopping_users FOREIGN KEY (id_user) REFERENCES users (id_user) ON UPDATE RESTRICT ON DELETE RESTRICT
 );
 
 -- Crear tabla de venta
