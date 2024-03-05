@@ -1,4 +1,5 @@
+import { CustomerController } from './customer.controller.js';
 import { ProfileController } from './profile.controller.js';
 import { UserController } from './user.controller.js';
 
-export { ProfileController, UserController };
+export { CustomerController, ProfileController, UserController };
