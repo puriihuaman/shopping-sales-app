@@ -1,14 +1,26 @@
+type IconSize = 'sm' | 'md' | 'lg';
+
+const iconSizes: Record<IconSize, string> = {
+	sm: 'w-6 h-6',
+	md: 'w-8 h-8',
+	lg: 'w-12 h-12',
+};
+
 export const IconSvg = ({
 	iconID,
-	otherClass = 'icon-sm',
+	iconSize = 'sm',
 }: {
 	iconID: string;
-	otherClass?: string;
+	iconSize?: IconSize;
 }) => {
+	const PATH = '/assets/icons/svg-icons.svg#';
+
+	const sizeClass = iconSizes[iconSize] || iconSizes['sm'];
+
 	return (
-		<span className="flex justify-center, items-center">
-			<svg className={`icon-svg ${otherClass}`}>
-				<use href={'path' + iconID}></use>
+		<span className="flex justify-center items-center">
+			<svg className={` block text-current fill-current ${sizeClass}`}>
+				<use href={PATH + iconID}></use>
 			</svg>
 		</span>
 	);
