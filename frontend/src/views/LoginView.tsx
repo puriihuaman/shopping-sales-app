@@ -46,7 +46,7 @@ export const LoginView = () => {
 			// + Redirigir al dashboard o home
 			// router.push({ path: '/' });
 
-			navigate('/home');
+			navigate('/productos');
 		}
 	};
 
