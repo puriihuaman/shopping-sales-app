@@ -1,0 +1,15 @@
+meta {
+  name: get-by-document
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{BACKEND_PATH}}/providers?document=12345678
+  body: none
+  auth: none
+}
+
+query {
+  document: 12345678
+}

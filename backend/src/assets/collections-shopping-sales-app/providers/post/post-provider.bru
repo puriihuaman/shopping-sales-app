@@ -1,0 +1,20 @@
+meta {
+  name: post-provider
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{BACKEND_PATH}}/providers
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id_document": "7777777",
+    "name": "Test test test",
+    "address": "San Miguel, Lima - Perú",
+    "phone": "909909056"
+  }
+}
