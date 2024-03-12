@@ -24,7 +24,7 @@ app.use('/api/users', userRouter);
 app.use('/api/customers', customerRouter);
 app.use('/api/providers', providerRouter);
 app.use('/api/products', productRouter);
-// app.use('/api/shopping', shoppingRouter);
+app.use('/api/shopping', shoppingRouter);
 
 // + Manejando los errores
 app.use((error, req, res, next) => {
