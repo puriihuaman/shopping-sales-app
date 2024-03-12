@@ -1,0 +1,15 @@
+meta {
+  name: get-by-name
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{BACKEND_PATH}}/products?name=teclado
+  body: none
+  auth: none
+}
+
+query {
+  name: teclado
+}
