@@ -4,8 +4,10 @@ import { corsMiddlewares } from './middlewares/cors.middleware.js';
 import {
 	authRouter,
 	customerRouter,
+	productRouter,
 	profileRouter,
 	providerRouter,
+	shoppingRouter,
 	userRouter,
 } from './routes/index.js';
 import { responseError } from './utils/index.js';
@@ -21,6 +23,8 @@ app.use('/api/profiles', profileRouter);
 app.use('/api/users', userRouter);
 app.use('/api/customers', customerRouter);
 app.use('/api/providers', providerRouter);
+app.use('/api/products', productRouter);
+// app.use('/api/shopping', shoppingRouter);
 
 // + Manejando los errores
 app.use((error, req, res, next) => {
