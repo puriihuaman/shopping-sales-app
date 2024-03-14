@@ -103,9 +103,9 @@ export class ShoppingModel {
 
 			if (shoppingResult.rowCount === 0) {
 				throw new ClientError(
-					'Error registering',
+					'Error registering purchase',
 					500,
-					'Product could not be registered'
+					'The purchase could not be registered successfully'
 				);
 			}
 
@@ -125,14 +125,14 @@ export class ShoppingModel {
 
 			if (productResult.rowCount === 0) {
 				throw new ClientError(
-					'Error registering',
+					'Error updating stock',
 					500,
-					'Product could not be registered'
+					'Product stock could not be updated'
 				);
 			}
 
 			return {
-				message: 'Shopping registered successfully',
+				message: 'Purchase successfully registered',
 				insertedShopping: true,
 				status: 201,
 				dataRecords: shoppingResult.rows[0],
