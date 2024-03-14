@@ -1,0 +1,18 @@
+meta {
+  name: get -calculate-sales-total
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{BACKEND_PATH}}/sales/cart
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "idProduct": "50debecb-5dbc-4c37-90f6-6d7c2676a13f",
+    "amount": 3
+  }
+}
