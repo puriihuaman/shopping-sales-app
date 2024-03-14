@@ -7,6 +7,7 @@ import {
 	productRouter,
 	profileRouter,
 	providerRouter,
+	saleRouter,
 	shoppingRouter,
 	userRouter,
 } from './routes/index.js';
@@ -25,6 +26,7 @@ app.use('/api/customers', customerRouter);
 app.use('/api/providers', providerRouter);
 app.use('/api/products', productRouter);
 app.use('/api/shopping', shoppingRouter);
+app.use('/api/sales', saleRouter);
 
 // + Manejando los errores
 app.use((error, req, res, next) => {
