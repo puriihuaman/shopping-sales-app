@@ -1,0 +1,26 @@
+:root {
+	/* + --------------- Font family --------------- */
+
+	$inter-bold-path: '/assets/fonts/Inter-Bold';
+	$poppins-regular-path: '/assets/fonts/Poppins-Regular';
+
+	@font-face {
+		font-family: 'Inter';
+		font-weight: bold;
+		font-display: swap;
+		font-style: normal;
+		src: local('Inter'), url('#{$inter-bold-path}.woff2') format('woff2'),
+			url('#{$inter-bold-path}.woff') format('woff'),
+			url('#{$inter-bold-path}.ttf') format('truetype');
+	}
+
+	@font-face {
+		font-family: 'Poppins';
+		font-weight: 400;
+		font-style: normal;
+		font-display: swap;
+		src: local('Poppins'), url('#{$poppins-regular-path}.woff2') format('woff2'),
+			url('#{$poppins-regular-path}.woff') format('woff'),
+			url('#{$poppins-regular-path}.ttf') format('truetype');
+	}
+}
