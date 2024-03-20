@@ -18,8 +18,10 @@ export const IconSvg = ({
 	const sizeClass = iconSizes[iconSize] || iconSizes['sm'];
 
 	return (
-		<span className="flex justify-center items-center">
-			<svg className={` block text-current fill-current ${sizeClass}`}>
+		<span className="flex justify-center items-center select-none">
+			<svg
+				className={`block text-current fill-current select-none ${sizeClass}`}
+			>
 				<use href={PATH + iconID}></use>
 			</svg>
 		</span>
