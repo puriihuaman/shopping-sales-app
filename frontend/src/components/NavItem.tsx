@@ -11,7 +11,7 @@ export const NavItem = ({
 	iconID: string;
 }) => {
 	return (
-		<li className="border-b border-slate-800 cursor-pointer hover:bg-slate-950 transition-colors duration-300">
+		<li className="border-b text-slate-500 border-slate-300 cursor-pointer hover:text-slate-700 hover:bg-slate-300 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800 dark:border-slate-800 transition-colors duration-300">
 			<NavLink
 				to={path}
 				className={({ isActive }: { isActive: boolean }): string => {
