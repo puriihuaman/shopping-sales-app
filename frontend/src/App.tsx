@@ -3,6 +3,7 @@ import { Home } from '@views/Home';
 import { LoginView } from '@views/LoginView';
 import { Products } from '@views/Products';
 import { Shopping } from '@views/Shopping';
+import { ShoppingList } from '@views/ShoppingList';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
 						<Route path="/" element={<LoginView />} />
 						<Route path="/compras" element={<Shopping />} />
 						<Route path="/ventas" element={<Home />} />
-						<Route path="/lista-compras" element={<Home />} />
+						<Route path="/lista-compras" element={<ShoppingList />} />
 						<Route path="/lista-ventas" element={<Home />} />
 						<Route path="/productos" element={<Products />} />
 					</Routes>
