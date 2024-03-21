@@ -1,65 +1,149 @@
 import { useEffect, useState } from 'react';
 
+enum OrderTerm {
+	NAME = 'NAME',
+	PRICE = 'PRICE',
+	STOCK = 'STOCK',
+}
+enum Direction {
+	'ASC' = 'ASC',
+	'DESC' = 'DESC',
+	'NORMAL' = 'NORMAL',
+}
+
 interface Product {
-	id: number;
+	id: string;
 	name: string;
 	stock: number;
 	price: number;
 }
 
 const productList: Array<Product> = [
-	{ id: 1, name: 'Apple MacBook Pro 17"', stock: 10, price: 3500 },
-	{ id: 2, name: 'Teclado Gamer', stock: 50, price: 800 },
-	{ id: 3, name: 'Magic Mouse 2', stock: 20, price: 1500 },
-	{ id: 4, name: 'Auriculares', stock: 5, price: 2800 },
+	{
+		id: crypto.randomUUID(),
+		name: 'Apple MacBook Pro 17"',
+		stock: 10,
+		price: 3500,
+	},
+	{ id: crypto.randomUUID(), name: 'Teclado Gamer', stock: 50, price: 800 },
+	{ id: crypto.randomUUID(), name: 'Magic Mouse 2', stock: 20, price: 1500 },
+	{ id: crypto.randomUUID(), name: 'Auriculares', stock: 5, price: 2800 },
 ];
 
 export const Products = () => {
 	const [products, setProducts] = useState<Product[]>(productList);
-	const [sortingDirection, setSortingDirection] = useState<string>('ASC');
+	const [sortingDirection, setSortingDirection] = useState<string>(
+		Direction.NORMAL
+	);
 
-	const handleSortStock = ({ sortBy }: { sortBy: string }): void => {
-		if (sortBy.toLowerCase() === 'price') {
-			sortStock();
-		} else if (sortBy.toLowerCase() === 'name') {
-			sortName();
+	const handleSorting = ({ sortBy }: { sortBy: string }): void => {
+		if (sortBy === OrderTerm.STOCK) {
+			sortByStock();
+		} else if (sortBy === OrderTerm.NAME) {
+			sortByName();
+		} else if (sortBy === OrderTerm.PRICE) {
+			sortByPrice();
 		}
 	};
 
-	const sortStock = (): void => {
+	const sortByName = (): void => {
 		let orderedProducts: Product[] = [];
 
-		if (sortingDirection.toUpperCase() === 'ASC') {
-			orderedProducts = products.sort(
-				(a: Product, b: Product): number => a.price - b.price
+		if (sortingDirection === Direction.NORMAL) {
+			console.log('ASC');
+
+			orderedProducts = products.sort((a: Product, b: Product): number =>
+				a.name.localeCompare(b.name)
 			);
+
+			setSortingDirection(Direction.ASC);
+		} else if (sortingDirection === Direction.ASC) {
+			console.log('DESC');
+			orderedProducts = products.sort((a: Product, b: Product): number =>
+				b.name.localeCompare(a.name)
+			);
+
+			setSortingDirection(Direction.DESC);
 		} else {
-			orderedProducts = products.sort(
-				(a: Product, b: Product): number => b.price - a.price
-			);
-			setSortingDirection('ASC');
+			console.log('NORMAL');
+			orderedProducts = [...productList];
+			setSortingDirection(Direction.NORMAL);
 		}
+
+		// if (sortingDirection === Direction.NORMAL) {
+		// 	orderedProducts = products.sort((a: Product, b: Product): number =>
+		// 		a.name.localeCompare(b.name)
+		// 	);
+		// 	setSortingDirection(Direction.ASC);
+		// } else if (sortingDirection === Direction.ASC) {
+		// 	orderedProducts = products.sort((a: Product, b: Product): number =>
+		// 		b.name.localeCompare(a.name)
+		// 	);
+		// 	setSortingDirection(Direction.DESC);
+		// } else {
+		// 	// orderedProducts = products.sort((a: Product, b: Product): number =>
+		// 	// 	a.id.localeCompare(b.id)
+		// 	// );
+		// 	console.log(productList);
+
+		// 	orderedProducts = products;
+		// 	setSortingDirection(Direction.NORMAL);
+		// }
 
 		setProducts((): Product[] => orderedProducts);
 	};
 
-	const sortName = () => {
+	const sortByStock = (): void => {
 		let orderedProducts: Product[] = [];
 
-		if (sortingDirection.toUpperCase() === 'ASC') {
-			orderedProducts = products.sort((a: Product, b: Product): number =>
-				a.name.localeCompare(b.name)
+		if (sortingDirection === Direction.NORMAL) {
+			orderedProducts = products.sort(
+				(a: Product, b: Product): number => a.stock - b.stock
 			);
-			setSortingDirection('DESC');
-		} else if (sortingDirection.toUpperCase() === 'DESC') {
-			orderedProducts = products.sort((a: Product, b: Product): number =>
-				b.name.localeCompare(a.name)
+
+			setSortingDirection(Direction.ASC);
+		} else if (sortingDirection === Direction.ASC) {
+			orderedProducts = products.sort(
+				(a: Product, b: Product): number => b.stock - a.stock
 			);
-			setSortingDirection('');
-		} else {
-			orderedProducts = products.sort((a: Product, b: Product) => a.id - b.id);
-			setSortingDirection('ASC');
+
+			setSortingDirection(Direction.DESC);
 		}
+
+		// else {
+		// 	orderedProducts = products.sort(
+		// 		(a: Product, b: Product): number => a.id - b.id
+		// 	);
+
+		// 	setSortingDirection(Direction.NORMAL);
+		// }
+
+		setProducts((): Product[] => orderedProducts);
+	};
+
+	const sortByPrice = (): void => {
+		let orderedProducts: Product[] = [];
+
+		if (sortingDirection === Direction.NORMAL) {
+			orderedProducts = products.sort(
+				(a: Product, b: Product): number => a.price - b.price
+			);
+
+			setSortingDirection(Direction.ASC);
+		} else if (sortingDirection === Direction.ASC) {
+			orderedProducts = products.sort(
+				(a: Product, b: Product): number => b.price - a.price
+			);
+			setSortingDirection(Direction.DESC);
+		}
+
+		// else {
+		// 	orderedProducts = products.sort(
+		// 		(a: Product, b: Product): number => a.id - b.id
+		// 	);
+
+		// 	setSortingDirection(Direction.NORMAL);
+		// }
 
 		setProducts((): Product[] => orderedProducts);
 	};
@@ -70,7 +154,7 @@ export const Products = () => {
 	}, [products]);
 
 	return (
-		<main className="flex-1 min-h-screen bg-slate-950 text-slate-50 overflow-hidden">
+		<main className="flex-1 min-h-screen text-slate-800 bg-slate-50 overflow-hidden dark:text-slate-50 dark:bg-slate-950 transition-colors duration-300">
 			<header className="text-center py-8">
 				<h1 className="text-xl md:text-2xl lg:text-3xl font-heading">
 					Lista de Productos
@@ -79,7 +163,7 @@ export const Products = () => {
 
 			<div className="px-4">
 				<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-					<table className="w-full text-sm text-left rtl:text-right text-slate-50 bg-slate-800">
+					<table className="w-full text-sm text-left rtl:text-right text-slate-600 bg-slate-100 dark:text-current dark:bg-slate-900 transition-colors duration-300">
 						<thead className="text-xs uppercase text-slate-100 bg-purple-800">
 							<tr>
 								<th scope="col" className="px-6 py-3">
@@ -89,7 +173,9 @@ export const Products = () => {
 									<div className="flex items-center">
 										NOMBRE
 										<button
-											onClick={(): void => handleSortStock({ sortBy: 'name' })}
+											onClick={(): void =>
+												handleSorting({ sortBy: OrderTerm.NAME })
+											}
 										>
 											<svg
 												className="w-3 h-3 ms-1.5"
@@ -103,10 +189,13 @@ export const Products = () => {
 										</button>
 									</div>
 								</th>
+
 								<th scope="col" className="px-6 py-3">
 									<div className="flex items-center">
 										STOCK
-										<a href="#">
+										<button
+											onClick={() => handleSorting({ sortBy: OrderTerm.STOCK })}
+										>
 											<svg
 												className="w-3 h-3 ms-1.5"
 												aria-hidden="true"
@@ -116,14 +205,17 @@ export const Products = () => {
 											>
 												<path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
 											</svg>
-										</a>
+										</button>
 									</div>
 								</th>
+
 								<th scope="col" className="px-6 py-3">
 									<div className="flex items-center">
 										PRECIO
 										<button
-											onClick={(): void => handleSortStock({ sortBy: 'price' })}
+											onClick={(): void =>
+												handleSorting({ sortBy: OrderTerm.PRICE })
+											}
 										>
 											<svg
 												className="w-3 h-3 ms-1.5"
@@ -158,11 +250,11 @@ export const Products = () => {
 							{products.map((product: Product) => (
 								<tr
 									key={product.id}
-									className="bg-whiteS border-b border-slate-700 last:border-none hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 transition-colors duration-300"
+									className="bg-whiteS border-b border-slate-300 last:border-none hover:text-purple-500 hover:bg-slate-50 dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 transition-colors duration-300"
 								>
 									<th
 										scope="row"
-										className="px-6 py-4 font-medium text-gray-9000 whitespace-nowrap dark:text-white"
+										className="px-6 py-4 font-medium text-current whitespace-nowrap hover:text-current"
 									>
 										{product.id}
 									</th>

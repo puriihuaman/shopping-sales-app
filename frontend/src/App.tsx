@@ -8,7 +8,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 function App() {
 	return (
 		<>
-			<div className="flex">
+			<div className="grid lg:grid-cols-[256px_minmax(0,_1fr)]">
 				<BrowserRouter basename="/">
 					<Sidebar />
 
