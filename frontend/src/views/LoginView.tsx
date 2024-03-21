@@ -62,9 +62,9 @@ export const LoginView = () => {
 	}, []);
 
 	return (
-		<main className="bg-slate-950 text-slate-50">
+		<main className="bg-slate-50 text-slate-700 dark:bg-slate-950 dark:text-slate-50 transition-colors duration-300">
 			<section className="flex">
-				<div className="flex-grow min-h-screen flex justify-center items-center max-lg:hidden bg-gradient-to-t from-slate-950 to-purple-800">
+				<div className="flex-grow min-h-screen flex justify-center items-center max-lg:hidden bg-gradient-to-t from-purple-600 to-purple-950">
 					<img
 						src="/assets/images/segment_analysis.svg"
 						alt="segment analysis"
@@ -72,13 +72,13 @@ export const LoginView = () => {
 					/>
 				</div>
 
-				<div className="flex-grow min-h-screen relative z-10 overflow-hidden bg-transparent text-slate-50 after:content-[''] after:absolute after:top-0 after:left-0 after:-z-10 after:w-full after:h-full after:bg-gradient-to-r from-slate-950 to-slate-900/50 after:-skew-y-12">
+				<div className="flex-grow min-h-screen relative z-10 overflow-hidden bg-slate-50 text-current after:content-[''] after:absolute after:top-0 after:left-0 after:-z-10 after:w-full after:h-full after:bg-gradient-to-r from-slate-50 to-slate-200 after:-skew-y-12 dark:bg-slate-950 dark:from-slate-950 dark:to-slate-900/50 transition-all duration-300">
 					<div className="h-full w-[80%] mx-auto flex flex-col justify-center">
 						<div className="self-center pt-14">
 							<img
 								src="/assets/images/logo.png"
 								alt=""
-								className="w-14 invert"
+								className="w-14 dark:invert"
 							/>
 						</div>
 
@@ -86,7 +86,7 @@ export const LoginView = () => {
 							<h1 className="text-5xl font-heading font-bold mb-3 md:text-6xl">
 								Iniciar Sesión
 							</h1>
-							<p className="text-xl mb-10 md:text-2xl text-slate-400">
+							<p className="text-xl mb-10 md:text-2xl text-slate-500 dark:text-slate-400">
 								¡Por favor ingresa tus datos!
 							</p>
 
@@ -103,7 +103,7 @@ export const LoginView = () => {
 										type="text"
 										id="username"
 										name="username"
-										className="w-full p-3.5 text-center border-2 border-slate-800 outline-none rounded-xl bg-slate-900 placeholder:opacity-80 placeholder:text-center focus:border-purple-500 active:border-purple-500"
+										className="w-full p-3.5 text-center text-current bg-slate-50 border-2 border-slate-300 outline-none rounded-xl placeholder:opacity-80 placeholder:text-center focus:border-purple-500 active:border-purple-500 dark:bg-slate-900 dark:border-slate-800 dark:focus:border-purple-500 dark:active:border-purple-500 transition-colors duration-300"
 										autoFocus
 										placeholder="Usuario"
 										value={user.username}
@@ -127,7 +127,7 @@ export const LoginView = () => {
 										type={showPassword ? 'text' : 'password'}
 										id="password"
 										name="password"
-										className="w-full p-3.5 text-center border-2 border-slate-800 outline-none rounded-xl bg-slate-900 placeholder:opacity-80 placeholder:text-center focus:border-purple-500 active:border-purple-500"
+										className="w-full p-3.5 text-center text-current bg-slate-50 border-2 border-slate-300 outline-none rounded-xl placeholder:opacity-80 placeholder:text-center focus:border-purple-500 active:border-purple-500 dark:bg-slate-900 dark:border-slate-800 dark:focus:border-purple-500 dark:active:border-purple-500 transition-colors duration-300"
 										placeholder="Contraseña"
 										value={user.password}
 										onChange={({
@@ -138,14 +138,14 @@ export const LoginView = () => {
 									/>
 
 									<span
-										className="absolute top-[50%] right-4 translate-y-[-50%] w-8 h-8 flex justify-center items-center text-slate-400 cursor-pointer select-none hover:text-slate-50 transition-colors duration-300"
+										className="absolute top-[50%] right-4 translate-y-[-50%] w-8 h-8 flex justify-center items-center text-slate-400 cursor-pointer select-none hover:text-slate-500 dark:hover:text-slate-300 transition-colors duration-300"
 										onClick={handleShowPassword}
 									>
 										<IconSvg iconID="eye" />
 									</span>
 								</fieldset>
 
-								<fieldset className="mb-4 text-center text-base text-slate-400 py-2">
+								<fieldset className="mb-4 text-center text-base text-slate-500 py-2 dark:text-slate-400">
 									<a href="#" className="no-underline hover:underline">
 										¿Has olvidado tu contraseña?
 									</a>
@@ -162,7 +162,7 @@ export const LoginView = () => {
 
 									<button
 										type="button"
-										className="w-full flex justify-center items-center p-3.5 text-base border-2 cursor-pointer rounded-xl bg-slate-900 gap-x-2 border-slate-900 hover:bg-slate-800 hover:border-slate-800 transition-colors duration-300"
+										className="w-full flex justify-center items-center p-3.5 text-base border-2 cursor-pointer rounded-xl bg-slate-300 gap-x-2 border-slate-200 hover:bg-slate-100 hover:text-purple-500 hover:border-current dark:bg-slate-800 dark:border-slate-700 dark:hover:bg-slate-900 dark:hover:border-current transition-colors duration-300"
 									>
 										Iniciar sesión con Google
 									</button>
