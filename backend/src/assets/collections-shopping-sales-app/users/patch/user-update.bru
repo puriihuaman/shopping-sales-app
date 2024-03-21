@@ -1,0 +1,21 @@
+meta {
+  name: user-update
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{BACKEND_PATH}}/users/123576d1-2104-4ea6-bd59-25cd1972b04e
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name_user": "Pedro",
+    "lastname": "Purihuaman",
+    "email": "pedropuriihuaman@gmail.com",
+    "id_profile": "49fc1b54-aad0-4e97-b722-d63070afa885"
+  } 
+  
+}

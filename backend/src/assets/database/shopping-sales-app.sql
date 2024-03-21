@@ -41,85 +41,85 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- Crear tabla de cliente
 CREATE TABLE IF NOT EXISTS customers (
-  code SMALLSERIAL,
+  id_customer UUID,
   id_document VARCHAR (20) NOT NULL,
   name VARCHAR(40) NOT NULL,
   address VARCHAR(200) NOT NULL,
   phone VARCHAR(20) NOT NULL,
-  CONSTRAINT pk_customers PRIMARY KEY (code),
+  CONSTRAINT pk_customers PRIMARY KEY (id_customer),
   CONSTRAINT uk_customers UNIQUE (id_document)
 );
 
 -- Crear tabla de proveedor
 CREATE TABLE IF NOT EXISTS providers (
-  code SMALLSERIAL,
+  id_provider UUID,
   id_document VARCHAR (20) NOT NULL,
   name VARCHAR(40) NOT NULL,
   address VARCHAR(200) NOT NULL,
   phone VARCHAR(20) NOT NULL,
-  CONSTRAINT pk_providers PRIMARY KEY (code),
+  CONSTRAINT pk_providers PRIMARY KEY (id_provider),
   CONSTRAINT uk_providers UNIQUE (id_document)
 );
 
 -- Crear tabla de producto
 CREATE TABLE IF NOT EXISTS products (
-  code SMALLSERIAL,
+  id_product UUID,
   name VARCHAR(40) NOT NULL,
   amount INT NOT NULL,
   price DECIMAL NOT NULL,
-  code_user SMALLINT,
-  CONSTRAINT pk_products PRIMARY KEY (code),
-  CONSTRAINT fk_products_users FOREIGN KEY (code_user) REFERENCES users (code) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  id_user UUID,
+  CONSTRAINT pk_products PRIMARY KEY (id_product),
+  CONSTRAINT fk_products_users FOREIGN KEY (id_user) REFERENCES users (id_user) ON UPDATE RESTRICT ON DELETE RESTRICT,
   CONSTRAINT ck_amount CHECK (amount > 0),
   CONSTRAINT ck_price CHECK (price > 0)
 );
 
 -- Crear tabla de compra
 CREATE TABLE IF NOT EXISTS shopping (
-  code SMALLSERIAL,
+  id_shopping UUID,
   update_date DATE DEFAULT NOW() NOT NULL,
-  code_provider SMALLINT,
-  code_product SMALLINT,
+  id_provider UUID,
+  id_product UUID,
   amount INT NOT NULL,
-  purchase_value INT NOT NULL,
-  code_user SMALLINT,
-  CONSTRAINT pk_shopping PRIMARY KEY (code),
-  CONSTRAINT fk_shopping_providers FOREIGN KEY (code_provider) REFERENCES providers (code) ON UPDATE RESTRICT ON DELETE RESTRICT,
-  CONSTRAINT fk_shopping_products FOREIGN KEY (code_product) REFERENCES products (code) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  purchase_value DECIMAL NOT NULL,
+  id_user UUID,
+  CONSTRAINT pk_shopping PRIMARY KEY (id_shopping),
+  CONSTRAINT fk_shopping_providers FOREIGN KEY (id_provider) REFERENCES providers (id_provider) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  CONSTRAINT fk_shopping_products FOREIGN KEY (id_product) REFERENCES products (id_product) ON UPDATE RESTRICT ON DELETE RESTRICT,
   CONSTRAINT ck_shopping_amount CHECK(amount > 0),
   CONSTRAINT ck_shopping_purchase_value CHECK(purchase_value > 0),
-  CONSTRAINT fk_shopping_users FOREIGN KEY (code_user) REFERENCES users (code) ON UPDATE RESTRICT ON DELETE RESTRICT
+  CONSTRAINT fk_shopping_users FOREIGN KEY (id_user) REFERENCES users (id_user) ON UPDATE RESTRICT ON DELETE RESTRICT
 );
 
 -- Crear tabla de venta
 CREATE TABLE IF NOT EXISTS sales (
-  code SMALLSERIAL,
+  id_sale UUID,
   update_date DATE DEFAULT NOW() NOT NULL,
-  code_customer SMALLINT,
-  code_product SMALLINT,
+  id_customer UUID,
+  id_product UUID,
   amount INT NOT NULL,
   sale_value INT NOT NULL,
-  code_user SMALLINT,
-  CONSTRAINT pk_sales PRIMARY KEY (code),
-  CONSTRAINT fk_sales_customers FOREIGN KEY (code_customer) REFERENCES customers (code) ON UPDATE RESTRICT ON DELETE RESTRICT,
-  CONSTRAINT fk_sales_products FOREIGN KEY (code_product) REFERENCES products (code) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  id_user UUID,
+  CONSTRAINT pk_sales PRIMARY KEY (id_sale),
+  CONSTRAINT fk_sales_customers FOREIGN KEY (id_customer) REFERENCES customers (id_customer) ON UPDATE RESTRICT ON DELETE RESTRICT,
+  CONSTRAINT fk_sales_products FOREIGN KEY (id_product) REFERENCES products (id_product) ON UPDATE RESTRICT ON DELETE RESTRICT,
   CONSTRAINT ck_sales_amount CHECK (amount > 0),
   CONSTRAINT ck_sales_sale_value CHECK (sale_value > 0),
-  CONSTRAINT fk_sales_users FOREIGN KEY (code_user) REFERENCES users (code) ON UPDATE RESTRICT ON DELETE RESTRICT
+  CONSTRAINT fk_sales_users FOREIGN KEY (id_user) REFERENCES users (id_user) ON UPDATE RESTRICT ON DELETE RESTRICT
 );
 
 -- Crear tabla de auditoria
 CREATE TABLE IF NOT EXISTS audits (
-  code SMALLSERIAL,
+  id_audit UUID,
   audit_date TIMESTAMP DEFAULT NOW() NOT NULL,
   action VARCHAR(30) NOT NULL,
   table_name VARCHAR(30) NOT NULL,
-  nuevo JSON,
-  anterior JSON NOT NULL,
-  code_user SMALLINT,
-  CONSTRAINT pk_audits PRIMARY KEY (code),
+  new_audit JSON,
+  previous JSON NOT NULL,
+  id_user UUID,
+  CONSTRAINT pk_audits PRIMARY KEY (id_audit),
   CONSTRAINT uk_audits UNIQUE (table_name),
-  CONSTRAINT fk_audits_users FOREIGN KEY (code_user) REFERENCES users (code) ON UPDATE RESTRICT ON DELETE RESTRICT
+  CONSTRAINT fk_audits_users FOREIGN KEY (id_user) REFERENCES users (id_user) ON UPDATE RESTRICT ON DELETE RESTRICT
 );
 
 

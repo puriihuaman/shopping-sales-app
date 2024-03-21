@@ -1,0 +1,17 @@
+meta {
+  name: patch-profile
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{BACKEND_PATH}}/profiles/103b9b93-ed96-43e7-8211-79e86cfdf8b5
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "profile": "CAJERO"
+  }
+}

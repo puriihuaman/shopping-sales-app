@@ -7,5 +7,6 @@ const authRouter = Router();
 const authController = new AuthController({ userModel: UserModel });
 
 authRouter.post('/', authController.loginControl);
+// authRouter.post('/', authController.registerUser);
 
 export { authRouter };

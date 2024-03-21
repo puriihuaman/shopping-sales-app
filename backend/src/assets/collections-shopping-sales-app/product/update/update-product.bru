@@ -1,0 +1,17 @@
+meta {
+  name: update-product
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{BACKEND_PATH}}/products/50debecb-5dbc-4c37-90f6-6d7c2676a13f
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Teclado RGB"
+  }
+}

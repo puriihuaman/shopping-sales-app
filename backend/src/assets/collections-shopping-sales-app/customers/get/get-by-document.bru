@@ -1,0 +1,15 @@
+meta {
+  name: get-by-document
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{BACKEND_PATH}}/customers?document=76611274
+  body: none
+  auth: none
+}
+
+query {
+  document: 76611274
+}

@@ -4,8 +4,8 @@ const profileSchema = z.object({
 	// code: z.string().uuid().trim(),
 	profile: z
 		.string({
-			required_error: 'Profile profile must be a string',
-			invalid_type_error: 'Profile profile is required',
+			required_error: 'The profile field is required',
+			invalid_type_error: 'The profile field must be a string',
 		})
 		.trim()
 		.min(2, { message: 'Must be 2 or more characters long' }),

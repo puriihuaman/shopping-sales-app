@@ -1,0 +1,20 @@
+meta {
+  name: update-provider
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{BACKEND_PATH}}/providers/00043431-8321-4b7a-95b2-3508386035a6
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id_document": "46789523",
+    "name": "Doris Rodriguez",
+    "address": "Trujillo - Perú",
+    "phone": "911976051"
+  }
+}
