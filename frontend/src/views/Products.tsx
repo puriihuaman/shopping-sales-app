@@ -1,3 +1,4 @@
+import { Header } from '@components/Header';
 import { useEffect, useState } from 'react';
 
 enum OrderTerm {
@@ -155,6 +156,8 @@ export const Products = () => {
 
 	return (
 		<main className="flex-1 min-h-screen text-slate-800 bg-slate-50 overflow-hidden dark:text-slate-50 dark:bg-slate-950 transition-colors duration-300">
+			<Header />
+
 			<header className="text-center py-8">
 				<h1 className="text-xl md:text-2xl lg:text-3xl font-heading">
 					Lista de Productos
