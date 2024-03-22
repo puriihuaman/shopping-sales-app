@@ -15,7 +15,7 @@ export const NavItem = ({
 			<NavLink
 				to={path}
 				className={({ isActive }: { isActive: boolean }): string => {
-					return `flex items-center flex-wrap gap-2 p-4 ${
+					return `flex items-center flex-nowrap gap-4 px-3 py-4  ${
 						isActive ? 'text-purple-500' : ''
 					}`;
 				}}

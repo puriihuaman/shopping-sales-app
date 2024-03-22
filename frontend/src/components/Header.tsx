@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { IconSvg } from './IconSvg';
 
-export const Header = () => {
+export const Header = ({ isShowSidebar }: { isShowSidebar: boolean }) => {
 	const [showConfig, setShowConfig] = useState(false);
 
 	const handleShowConfig = () => {
@@ -9,11 +9,20 @@ export const Header = () => {
 	};
 
 	return (
-		<header className="relative flex justify-between items-center gap-x-4 p-4 text-slate-800 bg-slate-50 border-b border-slate-300 shadow dark:text-slate-300 dark:bg-slate-900 dark:border-slate-800 transition-colors duration-300">
-			<div>
-				<IconSvg iconID="align-left" />
+		<header className="row-span-1 col-span-2 relative flex justify-between items-center text-slate-800 bg-slate-50 border-b border-slate-300 shadow dark:text-slate-300 dark:bg-slate-900 dark:border-slate-800 transition-colors duration-300">
+			<div
+				className={`flex justify-center items-center transition-all duration-300 ${
+					isShowSidebar ? 'w-64' : 'w-[50px]'
+				}`}
+			>
+				<img
+					src="/assets/images/logo.png"
+					alt="Logo"
+					className={`dark:invert ${isShowSidebar ? 'w-14 h-14' : 'w-8 h-8'}`}
+				/>
 			</div>
-			<div className="mr-auto">Lista de productos</div>
+
+			<div className="mr-auto text-xs md:text-base">Lista de productos</div>
 
 			<button
 				id="dropdownAvatarNameButton"
@@ -30,7 +39,7 @@ export const Header = () => {
 						alt="user photo"
 					/>
 				</div>
-				<span>Bonnie Green</span>
+				<span className="text-nowrap text-xs md:text-base">Bonnie Green</span>
 				<IconSvg iconID="chevron-down" iconSize="sm" />
 			</button>
 
