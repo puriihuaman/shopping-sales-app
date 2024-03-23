@@ -1,5 +1,4 @@
-import { Header } from '@components/Header';
-import { Sidebar } from '@components/Sidebar';
+import { ProtectedRoute } from '@components/ProtectedRoute';
 import { Home } from '@views/Home';
 import { LoginView } from '@views/LoginView';
 import { Products } from '@views/Products';
@@ -10,42 +9,54 @@ import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
-	const [showSidebar, setShowSidebar] = useState(false);
+	const [user, setUser] = useState({ username: '', password: '' });
 
-	const handleShowSidebar = () => {
-		setShowSidebar(!showSidebar);
+	const getUser = ({
+		username,
+		password,
+	}: {
+		username: string;
+		password: string;
+	}): void => {
+		setUser({ username, password });
 	};
 
 	return (
 		<>
-			<div
-				className={`h-screen grid grid-rows-[72px_minmax(0,_1fr)] transition-all duration-300 ${
-					showSidebar
-						? 'grid-cols-[256px_minmax(0,_1fr)]'
-						: 'grid-cols-[50px_minmax(0,_1fr)]'
-				}`}
-			>
-				<BrowserRouter basename="/">
-					<Header isShowSidebar={showSidebar} />
+			<BrowserRouter>
+				<Routes>
+					<Route
+						path="/login"
+						element={<LoginView userLogin={user} getUser={getUser} />}
+					/>
 
-					<div className="row-start-2 row-end-3 col-span-1">
-						<Sidebar
-							isShowSidebar={showSidebar}
-							handleShowSidebar={handleShowSidebar}
-						/>
-					</div>
-
-					<Routes>
-						<Route path="/" element={<LoginView />} />
-						<Route path="/perfiles" element={<Profile />} />
+					<Route
+						element={
+							<ProtectedRoute
+								isAuthenticated={user.username !== '' && user.password !== ''}
+							/>
+						}
+					>
+						<Route index element={<Home />} />
+						<Route path="/home" element={<Home />} />
 						<Route path="/compras" element={<Shopping />} />
 						<Route path="/ventas" element={<Home />} />
+						<Route path="/productos" element={<Products />} />
+					</Route>
+
+					<Route
+						element={
+							<ProtectedRoute
+								isAuthenticated={!!user.username && !!user.password}
+							/>
+						}
+					>
+						<Route path="/perfiles" element={<Profile />} />
 						<Route path="/lista-compras" element={<ShoppingList />} />
 						<Route path="/lista-ventas" element={<Home />} />
-						<Route path="/productos" element={<Products />} />
-					</Routes>
-				</BrowserRouter>
-			</div>
+					</Route>
+				</Routes>
+			</BrowserRouter>
 		</>
 	);
 }
